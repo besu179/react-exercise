@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 function App() {
+  const [showList, setShowList] = useState(false);
   const list = [
     {
       title: "React",
@@ -22,20 +25,24 @@ function App() {
       <h1>this is app.jsx</h1>
       <label htmlFor="search">search</label>
       <input type="text" id="search" name="search" />
-      <ul>
-        {list.map(function (item) {
-          return (
-            <li key={item.objectID}>
-              <span>
-                <a href={item.url}>{item.title} </a>
-              </span>
-              <span>{item.author} </span>
-              <span>{item.num_comments} </span>
-              <span>{item.points}</span>
-            </li>
-          );
-        })}
-      </ul>
+      {showList && (
+        <ul>
+          {list.map(function (item) {
+            return (
+              <li key={item.objectID}>
+                <span>
+                  <a href={item.url}>{item.title} </a>
+                </span>
+                <span>{item.author} </span>
+                <span>{item.num_comments} </span>
+                <span>{item.points}</span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      <br />
+       <button onClick={()=> setShowList(!showList)}>{showList ? "hide list" : "show list"} </button>
     </>
   );
 }
