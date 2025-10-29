@@ -19,6 +19,30 @@ function App() {
       points: 5,
       objectID: 1,
     },
+    {
+      title: "Vue.js",
+      url: "https://vuejs.org/",
+      author: "Evan You",
+      num_comments: 5,
+      points: 8,
+      objectID: 2,
+    },
+    {
+      title: "Angular",
+      url: "https://angular.io/",
+      author: "Google Team",
+      num_comments: 6,
+      points: 7,
+      objectID: 3,
+    },
+    {
+      title: "Svelte",
+      url: "https://svelte.dev/",
+      author: "Rich Harris",
+      num_comments: 4,
+      points: 9,
+      objectID: 4,
+    },
   ];
   return (
     <>
