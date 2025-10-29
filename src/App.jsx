@@ -1,7 +1,9 @@
 import { useState } from "react";
 
 function App() {
-  const [showList, setShowList] = useState(false);
+  const [showList, setShowList] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const list = [
     {
       title: "React",
@@ -44,14 +46,24 @@ function App() {
       objectID: 4,
     },
   ];
+  const filteredList = list.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <>
       <h1>this is app.jsx</h1>
       <label htmlFor="search">search</label>
-      <input type="text" id="search" name="search" />
+      <input
+        type="text"
+        id="search"
+        name="search"
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+        }}
+      />
       {showList && (
         <ul>
-          {list.map(function (item) {
+          {filteredList.map(function (item) {
             return (
               <li key={item.objectID}>
                 <span>
@@ -66,7 +78,9 @@ function App() {
         </ul>
       )}
       <br />
-       <button onClick={()=> setShowList(!showList)}>{showList ? "hide list" : "show list"} </button>
+      <button onClick={() => setShowList(!showList)}>
+        {showList ? "hide list" : "show list"}{" "}
+      </button>
     </>
   );
 }
