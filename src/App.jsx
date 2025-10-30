@@ -3,6 +3,7 @@ import { useState } from "react";
 function App() {
   const [showList, setShowList] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isDescending, setIsDescending] = useState(true);
 
   const list = [
     {
@@ -58,10 +59,12 @@ function App() {
         id="search"
         name="search"
         onChange={(e) => {
-          setSearchTerm(e.target.value);
+          setSearchTerm(e.target.value)
+          setShowList(true);
         }}
       />
-      {showList && (
+      {showList && (<>
+        <button>sort</button>
         <ul>
           {filteredList.map(function (item) {
             return (
@@ -75,11 +78,11 @@ function App() {
               </li>
             );
           })}
-        </ul>
+        </ul></>
       )}
       <br />
       <button onClick={() => setShowList(!showList)}>
-        {showList ? "hide list" : "show list"}{" "}
+        {showList ? "Hide list" : "Show list"}{" "}
       </button>
     </>
   );
