@@ -1,11 +1,12 @@
 import { useState } from "react";
+import "./App.css";
 
 function App() {
   const [showList, setShowList] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [isDescending, setIsDescending] = useState(true);
 
-  const list = [
+  const initialList = [
     {
       title: "React",
       url: "https://react.dev/",
@@ -47,39 +48,52 @@ function App() {
       objectID: 4,
     },
   ];
+  const [list, setList] = useState(initialList);
+
   const filteredList = list.filter((item) =>
     item.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  const sortedList = list.slice
+  const sortedList = filteredList
+    .slice()
+    .sort((a, b) =>
+      isDescending
+        ? b.title.localeCompare(a.title)
+        : a.title.localeCompare(b.title)
+    );
   return (
     <>
       <h1>this is app.jsx</h1>
-      <label htmlFor="search">search</label>
-      <input
-        type="text"
-        id="search"
-        name="search"
-        onChange={(e) => {
-          setSearchTerm(e.target.value)
-          setShowList(true);
-        }}
-      />
-      {showList && (<>
-        <button>sort</button>
-        <ul>
-          {filteredList.map(function (item) {
-            return (
-              <li key={item.objectID}>
-                <span>
-                  <a href={item.url}>{item.title} </a>
-                </span>
-                <span>{item.author} </span>
-                <span>{item.num_comments} </span>
-                <span>{item.points}</span>
-              </li>
-            );
-          })}
-        </ul></>
+      {showList && (
+        <>
+          <button onClick={() => setIsDescending(!isDescending)}>
+            Sort {isDescending ? "↓" : "↑"}
+          </button>
+          <ul>
+            {sortedList.map(function (item) {
+              return (
+                <li key={item.objectID}>
+                  <span>
+                    <a href={item.url}>{item.title} </a>
+                  </span>
+                  <span>{item.author} </span>
+                  <span>{item.num_comments} </span>
+                  <span>{item.points}</span>
+                  <span>
+                    <button
+                      onClick={() =>
+                        setList((prevList) =>
+                          prevList.filter((i) => i.objectID !== item.objectID)
+                        )
+                      }
+                    >
+                      Delete
+                    </button>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </>
       )}
       <br />
       <button onClick={() => setShowList(!showList)}>
