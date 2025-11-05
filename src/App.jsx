@@ -50,6 +50,7 @@ function App() {
   const filteredList = list.filter((item) =>
     item.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const sortedList = list.slice
   return (
     <>
       <h1>this is app.jsx</h1>
